@@ -10,13 +10,15 @@ def check_right(data, coordinates, letters):
     while x < length_x:
         while y < length_y:
             if data[x][y] == "A":
-                checks = [c_r2(data, x, y, dec_by_one, dec_by_one, ["M"]),
-                 c_r2(data, x, y, inc_by_one, inc_by_one, ["S"]),
-                 c_r2(data, x, y, dec_by_one, inc_by_one, ["S"]),
-                 c_r2(data, x, y, inc_by_one, dec_by_one, ["M"])
-                 ]
-                if all(checks):
-                    total +=1
+                for element in [["M", "S", "S", "M"], ["M", "S", "M", "S"], ["S", "M", "S", "M"], ["S", "M", "M", "S"]]:
+                    checks = [
+                        c_r2(data, x, y, dec_by_one, dec_by_one, [element[0]]),
+                        c_r2(data, x, y, inc_by_one, inc_by_one, [element[1]]),
+                        c_r2(data, x, y, dec_by_one, inc_by_one, [element[2]]),
+                        c_r2(data, x, y, inc_by_one, dec_by_one, [element[3]])
+                    ]
+                    if all(checks):
+                        total += 1
                 y += 1
             else:
                 y += 1
@@ -62,7 +64,6 @@ def main(filename):
     with open(filename, 'r', encoding='UTF-8') as file:
         while line := file.readline():
             result.append(line.strip())
-    print(result)
 
     return check_right(result, [0, 0], xmas_letters)
 
@@ -70,13 +71,11 @@ def main(filename):
 if __name__ == '__main__':
     # print(check_right(["MMMSXXMASM", "MSAMXMSMSA", "AMXSXMAAMM", "MSAMASMSMX",
     #                    "XMASAMX.MM", "X.....XA.A", "S.S.S.S.SS", ".A.A.A.A.A",
-    #                    "..M.M.M.MM",".X.X.XMASX"], [0, 0], xmas_letters))
-    print(check_right([
-        ".M.S......",
-        "..A..MSMS.",
-        ".M.S.MAA.."], [0, 0], xmas_letters))
+    #                    "..M.M.M.MM", ".X.X.XMASX"], [0, 0], xmas_letters))
+    print(check_right([".M.S......", "..A..MSMS.", ".M.S.MAA..","..A.ASMSM.", ".M.S.M....","..........","S.S.S.S.S.", ".A.A.A.A..", "M.M.M.M.M.", ".........."], [0, 0], xmas_letters))
+    print(check_right(["S.S.S.S.S.", ".A.A.A.A..", "M.M.M.M.M."], [0, 0], xmas_letters))
 
     # # c_r2(["MMMSXXMASM", "MSAMXMSMSA", "AMXSXMAAMM", "MSAMASMSMX"], 0, 0, identity, inc_by_one)
     # total = main("input_small.txt")
-    # total = main("input.txt")
-    # print(total)
+    total = main("input.txt")
+    print(total)
