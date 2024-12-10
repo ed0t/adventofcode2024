@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "advent_of_code_2024"
+version = "0.1.0"
+description = ""
+authors = ["Edoardo Tosca"]
+packages = [
+    { include = "exercise", from = "src" }
+]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+requests = "^2.31.0"
+beautifulsoup4 = "^4.12.2"
+
+
+[tool.poetry.group.test.dependencies]
+pytest = "^7.4.3"
+requests-mock = "^1.11.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+log_cli = true
+log_cli_level = "INFO"
+log_cli_format = "%(asctime)s [%(levelname)8s] %(message)s (%(filename)s:%(lineno)s)"
+log_cli_date_format = "%Y-%m-%d %H:%M:%S"
